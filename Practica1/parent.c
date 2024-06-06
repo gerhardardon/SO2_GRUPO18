@@ -51,7 +51,7 @@ int main() {
             buffer[num_bytes] = '\0';
             printf("primer proceso hijo recibió: %s\n", buffer);
         }
-        close(pipe_fd[0]);  // Close the read end of the pipe
+        close(pipe_fd[0]);  // Cierre el extremo de lectura de la tubería
 
         // Segunda llamada a fork dentro del primer hijo
         pid2 = fork();
@@ -73,7 +73,7 @@ int main() {
                 printf("segundo proceso hijo recibió: %s\n", bufferh);
             }
             close(pipe_rh[0]);  
-            // Close the read end of the pipe
+            // Cierre el extremo de lectura de la tubería
 
 
         } else {
@@ -100,7 +100,7 @@ int main() {
             perror("execlp");
             exit(1);
         } else {
-            close(pipe_fd[1]);  // Close the write end of the pipe in the parent after fork
+            close(pipe_fd[1]);  // Cierre el extremo de escritura
             wait(NULL);  // Esperar a que termine child1
         }
 
@@ -117,8 +117,8 @@ int main() {
             perror("execlp");
             exit(1);
         } else {
-            close(pipe_rh[1]);  // Close the write end of the pipe in the parent after fork
-            wait(NULL);  // Esperar a que termine child1
+            close(pipe_rh[1]);  // Cierre el extremo de escritura
+            wait(NULL);  // Esperar a que termine child2
         }
 
     }
