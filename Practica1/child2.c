@@ -25,7 +25,7 @@ int main() {
             const char *params = "open";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
-            close(pipe_fd);
+            //close(pipe_fd);
 
         } else if (random == 2){
             printf("-write\n");
@@ -49,7 +49,7 @@ int main() {
             const char *params = "write";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
-            close(pipe_fd);
+            //close(pipe_fd);
 
         } else {
             printf("-read\n");
@@ -69,7 +69,7 @@ int main() {
             const char *params = "read";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
-            close(pipe_fd);
+            //close(pipe_fd);
 
         }
 
