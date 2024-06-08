@@ -37,6 +37,8 @@ int main() {
     pid_t pid1, pid2;
 
     pid1 = fork();
+    
+    // creo que este if no es necesario ------------------------------------------------------
     if (pid1 < 0) {
         perror("fork");
         exit(1);
