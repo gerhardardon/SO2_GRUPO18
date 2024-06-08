@@ -6,22 +6,21 @@
 #include <sys/wait.h>
 
 int main() {
+    
     /*
-    const char *params = "Read";
+    const char *params = "Open";
     int pipe_fd = 1;  
     write(pipe_fd, params, strlen(params));
     close(pipe_fd);
     return 0;
     */
-    
-
     // loop infinito
     while (1)
     {
         // random number de 1 a 3 
         int random = rand() % 3 + 1;
         if (random == 1){
-            printf("open\n");
+            printf("-open\n");
             //enviar mensaje a padre
             const char *params = "open";
             int pipe_fd = 1;
@@ -29,7 +28,7 @@ int main() {
             close(pipe_fd);
 
         } else if (random == 2){
-            printf("write\n");
+            printf("-write\n");
             //abrir archivo
             FILE *file = fopen("practica1.txt", "a");
             if (file == NULL) {
@@ -52,9 +51,8 @@ int main() {
             write(pipe_fd, params, strlen(params));
             close(pipe_fd);
 
-
         } else {
-            printf("read\n");
+            printf("-read\n");
             //abrir archivo en modo lectura
             FILE *file = fopen("practica1.txt", "r");
             if (file == NULL) {
@@ -77,5 +75,4 @@ int main() {
 
         sleep(random);
     }
-    
 }
