@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <string.h>
 
+// Funcion para crear el archivo de log
 void setup_log_file(const char *filename) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
@@ -14,15 +15,17 @@ void setup_log_file(const char *filename) {
 }
 
 int main() {
+    // Crear el archivo de log
     const char *log_filename = "syscalls.log";
     setup_log_file(log_filename);
 
+
+    // Crear los pipes 
     int pipe_fd[2];
     if (pipe(pipe_fd) == -1) {
         perror("pipe");
         exit(1);
     }
-
 
     int pipe_rh[2];
     if (pipe(pipe_rh) == -1) {
@@ -30,8 +33,7 @@ int main() {
         exit(1);
     }
 
-
-
+    // Crear los hijos
     pid_t pid1, pid2;
 
     pid1 = fork();
