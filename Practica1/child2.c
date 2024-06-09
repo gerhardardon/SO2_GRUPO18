@@ -27,7 +27,6 @@ int main() {
             const char *params = "open";
             int pipe_rh = 1;
             write(pipe_rh, params, strlen(params));
-            write(pipe_rh,"\n",1);
             //close(pipe_rh);
 
         } else if (random == 2){
@@ -52,7 +51,6 @@ int main() {
             const char *params = "write";
             int pipe_rh = 1;
             write(pipe_rh, params, strlen(params));
-            write(pipe_rh,"\n",1);
 
         } else {
             printf("-read\n");
@@ -72,7 +70,6 @@ int main() {
             const char *params = "read";
             int pipe_rh = 1;
             write(pipe_rh, params, strlen(params));
-           write(pipe_rh,"\n",1);
 
         }
 

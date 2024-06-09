@@ -37,6 +37,8 @@ int main() {
         perror("fork");
         exit(1);
     } else if (pid_child1 == 0) {
+
+        printf("Child1 PID %d\n", getpid());
         // Proceso hijo que ejecuta child1
         close(pipe_fd[0]);  // Cerrar el extremo de lectura de la tubería
         dup2(pipe_fd[1], STDOUT_FILENO);  // Redirigir stdout a la tubería
@@ -51,6 +53,7 @@ int main() {
         perror("fork");
         exit(1);
     } else if (pid_child2 == 0) {
+        printf("Child2 PID %d\n", getpid());
         // Proceso hijo que ejecuta child2
         close(pipe_rh[0]);  // Cerrar el extremo de lectura de la tubería
         dup2(pipe_rh[1], STDOUT_FILENO);  // Redirigir stdout a la tubería
@@ -87,7 +90,7 @@ int main() {
             num_bytes = read(pipe_fd[0], buffer, sizeof(buffer) - 1);
             if (num_bytes > 0) {
                 buffer[num_bytes] = '\0';
-                printf("proceso padre recibió de child1: %s\n", buffer);
+                printf("-child1: %s\n", buffer);
             }
         }
 
@@ -95,7 +98,7 @@ int main() {
             num_bytesh = read(pipe_rh[0], bufferh, sizeof(bufferh) - 1);
             if (num_bytesh > 0) {
                 bufferh[num_bytesh] = '\0';
-                printf("proceso padre recibió de child2: %s\n", bufferh);
+                printf("-child2: %s\n", bufferh);
             }
         }
     }
