@@ -55,9 +55,9 @@ void print_with_timestamp(pid_t pid, const char *message) {
 
     strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", timeinfo);
     if(pid == 94627){
-        printf("\033[1;91mProceso <%d>: %s (%s)\033[0m\n", pid, message, time_str);
+        printf("\033[1;91mProceso <%d>\033[0m: %s (%s)\n", pid, message, time_str);
     }else if(pid == 94628){
-        printf("\033[1;36mProceso <%d>: %s (%s)\033[0m\n", pid, message, time_str);
+        printf("\033[1;36mProceso <%d>\033[0m: %s (%s)\n", pid, message, time_str);
     }
    // printf("Proceso <%d>: %s (%s)\n", pid, message, time_str);
     if (log_file != NULL) {
