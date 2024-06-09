@@ -54,7 +54,12 @@ void print_with_timestamp(pid_t pid, const char *message) {
     struct tm *timeinfo = localtime(&now);
 
     strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", timeinfo);
-    printf("Proceso <%d>: %s (%s)\n", pid, message, time_str);
+    if(pid == 94627){
+        printf("\033[1;91mProceso <%d>: %s (%s)\033[0m\n", pid, message, time_str);
+    }else if(pid == 94628){
+        printf("\033[1;36mProceso <%d>: %s (%s)\033[0m\n", pid, message, time_str);
+    }
+   // printf("Proceso <%d>: %s (%s)\n", pid, message, time_str);
     if (log_file != NULL) {
         fprintf(log_file, "Proceso <%d>: %s (%s)\n", pid, message, time_str);
         fflush(log_file);  // Garantizar la escritura inmediata en el archivo
@@ -83,12 +88,13 @@ void handle_sigint(int sig) {
     }
 
     fclose(file);
-
-    printf("\n\nContadores systap:\n");
-    printf("numero de llamadas al sistema: %d\n", line_count);
-    printf("%s: %d \n", word, word_count);
-    printf("%s: %d \n", word2, word2_count);
-
+    
+    
+    
+    printf("\n\n\033[1;32m\t\tContadores systap\033[0m\n");
+    printf("\033[1mnumero de llamadas al sistema\033[0m: %d\n", line_count);  
+    printf("\033[1m%s\033[0m: %d \n", word, word_count);
+    printf("\033[1m%s\033[0m: %d \n", word2, word2_count);
     close_log_file();
     exit(0);
 }
@@ -151,9 +157,9 @@ int main() {
     close(pipe_fd[1]);  // Cerrar el extremo de escritura de la tubería.
     close(pipe_rh[1]);  // Cerrar el extremo de escritura del otro tubo.
 
-    printf("Parent PID %d\n", getpid());
-    printf("hijo1 PID %d\n", pid_child1);
-    printf("hijo2 PID %d\n", pid_child2);
+    printf("\033[1;95mParent PID %d\033[0m\n", getpid());
+    printf("\t\033[1;91mhijo1 PID %d\033[0m\n", pid_child1);
+    printf("\t\033[1;36mhijo2 PID %d\033[0m\n", pid_child2);
     // Define el archivo de salida
     const char* output_file = "syscalls.log";
 
@@ -175,6 +181,14 @@ int main() {
     return 0;
 // ------------------------------------------------------------------
 }
+
+/*
+gcc parent.c -o parent
+./parent
+*/
+
+
+
 
 /*
 gcc parent.c -o parent
