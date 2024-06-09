@@ -24,10 +24,6 @@ int main() {
         if (random == 1){
             printf("-open\n");
             //enviar mensaje a padre
-            const char *params = "open";
-            int pipe_rh = 1;
-            write(pipe_rh, params, strlen(params));
-            //close(pipe_rh);
 
         } else if (random == 2){
             printf("-write\n");
@@ -48,9 +44,6 @@ int main() {
             fprintf(file, "%s\n", cadena);
             fclose(file);
             //enviar mensaje a padre
-            const char *params = "write";
-            int pipe_rh = 1;
-            write(pipe_rh, params, strlen(params));
 
         } else {
             printf("-read\n");
@@ -67,10 +60,6 @@ int main() {
             printf("-%s\n", cadena);
             fclose(file);
             //enviar mensaje a padre
-            const char *params = "read";
-            int pipe_rh = 1;
-            write(pipe_rh, params, strlen(params));
-
         }
 
         sleep(random);

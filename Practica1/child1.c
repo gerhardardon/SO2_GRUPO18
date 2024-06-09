@@ -23,11 +23,6 @@ int main() {
         int random = rand() % 3 + 1;
         if (random == 1){
             printf("-open\n");
-            //enviar mensaje a padre
-            const char *params = "open";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
-            //close(pipe_fd);
 
         } else if (random == 2){
             printf("-write\n");
@@ -48,9 +43,6 @@ int main() {
             fprintf(file, "%s\n", cadena);
             fclose(file);
             //enviar mensaje a padre
-            const char *params = "write";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
 
         } else {
             printf("-read\n");
@@ -67,9 +59,6 @@ int main() {
             printf("-%s\n", cadena);
             fclose(file);
             //enviar mensaje a padre
-            const char *params = "read";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
 
         }
 

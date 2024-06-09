@@ -7,6 +7,9 @@
 #include <sys/select.h>
 #include <time.h>  
 #include <signal.h>
+#include <ctype.h>
+
+#define MAX_LINE_LENGTH 1024
 
 FILE *log_file;
 
@@ -30,6 +33,21 @@ void close_log_file() {
     }
 }
 
+int count_word_in_line(const char *line, const char *word) {
+    int count = 0;
+    const char *tmp = line;
+    int word_len = strlen(word);
+
+    while ((tmp = strstr(tmp, word)) != NULL) {
+        // Asegúrate de que la palabra coincida completamente y no sea una subcadena
+        if ((tmp == line || !isalnum(tmp[-1])) && !isalnum(tmp[word_len])) {
+            count++;
+        }
+        tmp += word_len;
+    }
+    return count;
+}
+
 void print_with_timestamp(pid_t pid, const char *message) {
     time_t now = time(NULL);
     char time_str[64];
@@ -44,13 +62,33 @@ void print_with_timestamp(pid_t pid, const char *message) {
 }
 
 void handle_sigint(int sig) {
-    printf("\nContadores:\n");
-    printf("numero de llamadas del hijo 1: %d\n", c_child1);
-    printf("numero de llamadas del hijo 2: %d\n", c_child2);
-    printf("write: %d\n", c_write);
-    printf("open: %d\n", c_open);
-    printf("read: %d\n", c_read);
-    printf("PROCESOS FINALIZADOS\n");
+    const char *filename = "syscalls.log"; // nombre
+    const char *word2 = "read"; // palabra a buscar
+    const char *word = "write"; // palabra a buscar
+
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Error al abrir el archivo");
+    }
+
+    char line[MAX_LINE_LENGTH];
+    int line_count = 0;
+    int word_count = 0;
+    int word2_count = 0;
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        line_count++;
+        word_count += count_word_in_line(line, word);
+        word2_count += count_word_in_line(line, word2);
+    }
+
+    fclose(file);
+
+    printf("\n\nContadores systap:\n");
+    printf("numero de llamadas al sistema: %d\n", line_count);
+    printf("%s: %d \n", word, word_count);
+    printf("%s: %d \n", word2, word2_count);
+
     close_log_file();
     exit(0);
 }
@@ -83,7 +121,7 @@ int main() {
         perror("fork");
         exit(1);
     } else if (pid_child1 == 0) {
-        printf("Child1 PID %d\n", getpid());
+        //printf("Child1 PID %d\n", getpid());
         close(pipe_fd[0]);  // Cerrar el extremo de lectura de la tubería.
         dup2(pipe_fd[1], STDOUT_FILENO);  // Redirigir salida estándar a la tubería
         close(pipe_fd[1]);
@@ -99,7 +137,7 @@ int main() {
         perror("fork");
         exit(1);
     } else if (pid_child2 == 0) {
-        printf("Child2 PID %d\n", getpid());
+        //printf("Child2 PID %d\n", getpid());
         close(pipe_rh[0]);  // Cerrar el extremo de lectura de la tubería.
         dup2(pipe_rh[1], STDOUT_FILENO);  // Redirigir salida estándar a la tubería
         close(pipe_rh[1]);
@@ -113,61 +151,20 @@ int main() {
     close(pipe_fd[1]);  // Cerrar el extremo de escritura de la tubería.
     close(pipe_rh[1]);  // Cerrar el extremo de escritura del otro tubo.
 
-    char buffer[128];
-    char bufferh[128];
-    ssize_t num_bytes, num_bytesh;
+    printf("Parent PID %d\n", getpid());
+    printf("hijo1 PID %d\n", pid_child1);
+    printf("hijo2 PID %d\n", pid_child2);
+    // Define el archivo de salida
+    const char* output_file = "syscalls.log";
 
-    fd_set readfds;
-    int max_fd = (pipe_fd[0] > pipe_rh[0]) ? pipe_fd[0] : pipe_rh[0];
+    // Construye el comando para ejecutar el script de SystemTap con los PIDs como argumentos y redirigir la salida a un archivo
+    char command[256];
+    snprintf(command, sizeof(command), "sudo stap systap.stp %d %d > %s", pid_child1, pid_child2, output_file);
 
-    while (1) {
-        FD_ZERO(&readfds);
-        FD_SET(pipe_fd[0], &readfds);
-        FD_SET(pipe_rh[0], &readfds);
+    // Ejecuta el comando
+    int result = system(command);
 
-        int activity = select(max_fd + 1, &readfds, NULL, NULL, NULL);
 
-        if (activity < 0) {
-            perror("select");
-            exit(1);
-        }
-
-        if (FD_ISSET(pipe_fd[0], &readfds)) {
-            num_bytes = read(pipe_fd[0], buffer, sizeof(buffer) - 1);
-            if (num_bytes > 0) {
-                buffer[num_bytes] = '\0';
-                print_with_timestamp(pid_child1, buffer);
-                c_child1++;
-                if (strcmp(buffer, "write") == 0) {
-                    c_write++;
-                } else if (strcmp(buffer, "open") == 0) {
-                    c_open++;
-                } else if (strcmp(buffer, "read") == 0) {
-                    c_read++;
-                }
-            }
-        }
-
-        if (FD_ISSET(pipe_rh[0], &readfds)) {
-            num_bytesh = read(pipe_rh[0], bufferh, sizeof(bufferh) - 1);
-            if (num_bytesh > 0) {
-                bufferh[num_bytesh] = '\0';
-                print_with_timestamp(pid_child2, bufferh);
-                c_child2++;
-                if (strcmp(bufferh, "write") == 0) {
-                    c_write++;
-                } else if (strcmp(bufferh, "open") == 0) {
-                    c_open++;
-                } else if (strcmp(bufferh, "read") == 0) {
-                    c_read++;
-                }
-            }
-        }
-    }
-
-    // Cerrar los extremos de lectura de las tuberías.
-    close(pipe_fd[0]);
-    close(pipe_rh[0]);
 
     // Espere a que finalicen los procesos secundarios
     wait(NULL);
