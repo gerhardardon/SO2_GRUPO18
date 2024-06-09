@@ -15,7 +15,7 @@ int main() {
     return 0;
     */
     // loop infinito
-    while (1)
+  /* */  while (1)
     {
         // random number de 1 a 3 
         int random = rand() % 3 + 1;
@@ -25,6 +25,7 @@ int main() {
             const char *params = "open";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
+            write(pipe_fd,"\n",1);
             //close(pipe_fd);
 
         } else if (random == 2){
@@ -49,7 +50,7 @@ int main() {
             const char *params = "write";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
-            //close(pipe_fd);
+            write(pipe_fd,"\n",1);
 
         } else {
             printf("-read\n");
@@ -69,10 +70,11 @@ int main() {
             const char *params = "read";
             int pipe_fd = 1;
             write(pipe_fd, params, strlen(params));
-            //close(pipe_fd);
+           write(pipe_fd,"\n",1);
 
         }
 
         sleep(random);
     }
+    
 }
