@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/select.h>
 
 void setup_log_file(const char *filename) {
     FILE *file = fopen(filename, "w");
@@ -61,7 +62,7 @@ int main() {
 
     // Proceso padre
     close(pipe_fd[1]);  // Cerrar el extremo de escritura de la tubería
-    close(pipe_rh[1]);  // Cerrar el extremo de escritura de la tubería
+    close(pipe_rh[1]);  // Cerrar el extremo de escritura de la otra tubería
 
     char buffer[128];
     char bufferh[128];
