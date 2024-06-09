@@ -4,18 +4,20 @@
 #include <sys/types.h>
 #include <string.h>
 #include <sys/wait.h>
-
+#include <time.h>
 int main() {
-    
+    srand(time(NULL)^ getpid());
     /*
     const char *params = "Open";
-    int pipe_fd = 1;  
-    write(pipe_fd, params, strlen(params));
-    close(pipe_fd);
+    int pipe_rh = 1;  
+    write(pipe_rh, params, strlen(params));
+    close(pipe_rh);
     return 0;
     */
     // loop infinito
-  /* */  while (1)
+  /* */ 
+  
+   while (1)
     {
         // random number de 1 a 3 
         int random = rand() % 3 + 1;
@@ -23,10 +25,10 @@ int main() {
             printf("-open\n");
             //enviar mensaje a padre
             const char *params = "open";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
-            write(pipe_fd,"\n",1);
-            //close(pipe_fd);
+            int pipe_rh = 1;
+            write(pipe_rh, params, strlen(params));
+            write(pipe_rh,"\n",1);
+            //close(pipe_rh);
 
         } else if (random == 2){
             printf("-write\n");
@@ -48,9 +50,9 @@ int main() {
             fclose(file);
             //enviar mensaje a padre
             const char *params = "write";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
-            write(pipe_fd,"\n",1);
+            int pipe_rh = 1;
+            write(pipe_rh, params, strlen(params));
+            write(pipe_rh,"\n",1);
 
         } else {
             printf("-read\n");
@@ -68,13 +70,14 @@ int main() {
             fclose(file);
             //enviar mensaje a padre
             const char *params = "read";
-            int pipe_fd = 1;
-            write(pipe_fd, params, strlen(params));
-           write(pipe_fd,"\n",1);
+            int pipe_rh = 1;
+            write(pipe_rh, params, strlen(params));
+           write(pipe_rh,"\n",1);
 
         }
 
         sleep(random);
     }
+    return 0;
     
 }
