@@ -4,9 +4,9 @@
 #include <sys/types.h>
 #include <string.h>
 #include <sys/wait.h>
-
+#include <time.h>
 int main() {
-    
+    srand(time(NULL)^ getpid());
     /*
     const char *params = "Open";
     int pipe_fd = 1;  
@@ -78,5 +78,6 @@ int main() {
 
         sleep(random);
     }
+    return 0;
     
 }
