@@ -1,4 +1,8 @@
 # ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ Manual tecnico
+|Nombre  | Carnet | 
+|------------- | -------------|
+| Cristian Daniel Gomez Escobar |202107190 |
+| Gerhard Benjamin Ardon Valdez  |202004796 |
 ## CREACION DE TUBERIAS
 ```
     int pipe_fd[2];
