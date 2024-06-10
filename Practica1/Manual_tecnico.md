@@ -35,7 +35,7 @@ Aquí se crean dos tuberías (pipe_fd y pipe_rh). Estas tuberías se utilizan pa
 ```
 Aquí el proceso padre crea un proceso hijo (child1). En este proceso hijo, se cierra el extremo de lectura de la tubería y se redirige la salida estándar (stdout) al extremo de escritura de la tubería. Luego, se ejecuta el programa ./child1 usando execlp.
 
-# CREACION DE HIJO 2
+## CREACION DE HIJO 2
 
 ```
     pid_t pid_child2 = fork();
@@ -54,7 +54,7 @@ Aquí el proceso padre crea un proceso hijo (child1). En este proceso hijo, se c
 ```
 Similarmente, el proceso padre crea otro proceso hijo (child2). En este proceso hijo, se cierra el extremo de lectura de la tubería y se redirige la salida estándar (stdout) al extremo de escritura de la segunda tubería. Luego, se ejecuta el programa ./child2 usando execlp.
 
-# CREACION DE PROCESO PADRE
+## CREACION DE PROCESO PADRE
 
 ```
     close(pipe_fd[1]);  // Cerrar el extremo de escritura de la tubería.
