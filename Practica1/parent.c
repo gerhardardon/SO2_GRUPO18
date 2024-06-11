@@ -169,7 +169,7 @@ int main() {
     // Ejecuta el comando
     int result = system(command);
 
-
+ 
 
     // Espere a que finalicen los procesos secundarios
     wait(NULL);
