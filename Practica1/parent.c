@@ -39,7 +39,6 @@ int count_word_in_line(const char *line, const char *word) {
     int word_len = strlen(word);
 
     while ((tmp = strstr(tmp, word)) != NULL) {
-        // Asegúrate de que la palabra coincida completamente y no sea una subcadena
         if ((tmp == line || !isalnum(tmp[-1])) && !isalnum(tmp[word_len])) {
             count++;
         }
