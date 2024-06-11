@@ -131,7 +131,7 @@ int main() {
         close(pipe_fd[0]);  // Cerrar el extremo de lectura de la tubería.
         dup2(pipe_fd[1], STDOUT_FILENO);  // Redirigir salida estándar a la tubería
         close(pipe_fd[1]);
-        execlp("./child1", "./child1.bin", NULL);
+        execlp("./child1.bin", "./child1.bin", NULL);
         perror("execlp");
         exit(1);
     }
@@ -147,7 +147,7 @@ int main() {
         close(pipe_rh[0]);  // Cerrar el extremo de lectura de la tubería.
         dup2(pipe_rh[1], STDOUT_FILENO);  // Redirigir salida estándar a la tubería
         close(pipe_rh[1]);
-        execlp("./child2", "./child2.bin", NULL);
+        execlp("./child2.bin", "./child2.bin", NULL);
         perror("execlp");
         exit(1);
     }
