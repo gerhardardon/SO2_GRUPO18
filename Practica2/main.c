@@ -28,6 +28,8 @@ int main() {
                 read_json_file(filename); //  leemos el archivo json
                 break;
             case 2:
+            int subopcion;
+            do{
                 printf("MENU OPERACIONES INDIVIDUALES\n"); 
                 printf("1. Deposito\n");
                 printf("2. Retiro\n");
@@ -35,8 +37,8 @@ int main() {
                 printf("4. Consultar cuenta\n");
                 printf("\n");
                 printf("Ingresa el número de opción: ");
-                scanf("%d", &opcion);
-                switch (opcion) {
+                scanf("%d", &subopcion);
+                switch (subopcion) {
                     case 1:
                         printf("-------Deposito-------\n");
                         printf("Ingresa el número de cuenta: ");
@@ -80,7 +82,8 @@ int main() {
                     default:
                         printf("Opción inválida. Por favor, selecciona una opción válida.\n");
                         break;
-                }
+                } printf("\n");
+    } while (subopcion != 4);
 
                 break;
 
@@ -101,5 +104,5 @@ int main() {
     return 0;
 }
 
-//gcc main.c read_json.c operaciones_indv.c cJSON.c -o output
-//./output
+// Compilar:  gcc main.c read_json.c operaciones_indv.c cJSON.c -o output
+// Ejecutar: ./output
