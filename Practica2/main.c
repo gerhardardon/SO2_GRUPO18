@@ -100,3 +100,6 @@ int main() {
 
     return 0;
 }
+
+//gcc main.c read_json.c operaciones_indv.c cJSON.c -o output
+//./output
