@@ -8,12 +8,7 @@
 
 #define NUM_THREADS 3 //  definimos el numero de hilos
 int error_count = 0;
-struct data_struct
-{ //  creamos una estructura para guardar los datos de los usuarios
-    int no_cuenta;
-    char nombre[50];
-    float saldo;
-};
+
 struct erro_struct
 { //  creamos una estructura para guardar los datos de los usuarios
     int linea;
@@ -160,6 +155,11 @@ void log_results(thread_data data[], int total_items)   // guardamos los resulta
 
     fclose(log_file);
 }
+
+
+
+
+
 void read_json_file(char *filename)
 { //  creamos una funcion para leer el archivo json
     // vaciamor el contador de errores
