@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "operaciones_indv.h": "c"
+        "operaciones_indv.h": "c",
+        "stdlib.h": "c"
     }
 }
