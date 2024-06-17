@@ -7,6 +7,7 @@ struct data_struct
     float saldo;
 };
 void read_json_file(char* filename);
+void reporte_estado_cuenta();
 extern int usuarios_size;
 extern struct data_struct usuarios[200];
 

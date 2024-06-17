@@ -140,7 +140,9 @@ int main()
         printf("1. Carga masiva de usuarios\n");
         printf("2. Operaciones individuales\n");
         printf("3. Carga masiva de transacciones\n");
-        printf("4. Salir\n");
+        printf("4. Reporte Estado de cuenta\n");
+        
+        printf("5. Salir\n");
 
         // Solicitar la opción al usuario
         printf("Ingresa el número de opción: ");
@@ -165,6 +167,7 @@ int main()
                 printf("2. Retiro\n");
                 printf("3. Transacciòn\n");
                 printf("4. Consultar cuenta\n");
+                printf("5. Volver al menu principal\n");
                 printf("\n");
                 printf("Ingresa el número de opción: ");
                 scanf("%d", &subopcion);
@@ -210,12 +213,15 @@ int main()
                     scanf("%d", &no_cuentaaaa);
                     consultar_cuenta(no_cuentaaaa);
                     break;
+                case 5:
+                    printf("volviendo al menu principal...\n");
+                    break;
                 default:
                     printf("Opción inválida. Por favor, selecciona una opción válida.\n");
                     break;
                 }
                 printf("\n");
-            } while (subopcion != 4);
+            } while (subopcion != 5);
 
             break;
 
@@ -226,8 +232,12 @@ int main()
             printf("Cargando transacciones...\n");
             read_json_file2(filename2);
             break;
-
         case 4:
+
+            printf("Reporte Estado de cuenta realizado con exito\n");
+            reporte_estado_cuenta();
+            break;
+        case 5:
             printf("Saliendo del programa...\n");
             break;
         default:
@@ -236,7 +246,7 @@ int main()
         }
 
         printf("\n");
-    } while (opcion != 4);
+    } while (opcion != 5);
 
     return 0;
 }
