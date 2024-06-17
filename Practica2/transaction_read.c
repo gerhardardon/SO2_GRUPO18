@@ -3,13 +3,13 @@
 #include "cJSON.h"
 #include <string.h>
 
-struct data_struct {
+struct data_struct3 {
     int operacion;
     int cuenta1;
     int cuenta2;
     float monto;
 };
-struct data_struct transacciones[300];
+struct data_struct3 transaction[300];
 int transacciones_size = 0;
 
 struct data_struct2 {
@@ -19,7 +19,7 @@ struct data_struct2 {
 struct data_struct2 errores[300];
 int errores_size = 0;
 
-void read_json_file(char* filename){
+void read_json_file2(char* filename){
 
     // Open the JSON file for reading
     FILE *file = fopen(filename, "r");
@@ -102,10 +102,10 @@ void read_json_file(char* filename){
                 n2++;
             } else if(cJSON_IsNumber(cuenta1) && cJSON_IsNumber(cuenta2) && cuenta1->valueint != cuenta2->valueint && cuenta1->valueint > 0 && cuenta2->valueint > 0 && monto->valuedouble > 0){
 
-                    transacciones[n].operacion = operacion->valueint;
-                    transacciones[n].cuenta1 = cuenta1->valueint;
-                    transacciones[n].cuenta2 = cuenta2->valueint;
-                    transacciones[n].monto = monto->valuedouble;
+                    transaction[n].operacion = operacion->valueint;
+                    transaction[n].cuenta1 = cuenta1->valueint;
+                    transaction[n].cuenta2 = cuenta2->valueint;
+                    transaction[n].monto = monto->valuedouble;
                     n++;
             }else {
                 errores[n2].linea = n;
@@ -125,14 +125,14 @@ void read_json_file(char* filename){
 }
 
 int main(){
-    read_json_file("transacciones.json");
+    read_json_file2("transacciones.json");
     for(int i = 0; i < transacciones_size; i++){
-        printf("Operacion: %d - Cuenta1: %d - Cuenta2: %d - Monto: %.2f\n", transacciones[i].operacion, transacciones[i].cuenta1, transacciones[i].cuenta2, transacciones[i].monto);
+        printf("Operacion: %d - Cuenta1: %d - Cuenta2: %d - Monto: %.2f\n", transaction[i].operacion, transaction[i].cuenta1, transaction[i].cuenta2, transaction[i].monto);
     }
 
     for(int i = 0; i < errores_size; i++){
         printf("Linea: %d - Error: %s\n", errores[i].linea, errores[i].error);
     }
-    printf("Transacciones size: %d\n", transacciones_size);
+    printf("transaction size: %d\n", transacciones_size);
     return 0;
 }
