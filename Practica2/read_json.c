@@ -231,3 +231,46 @@ void read_json_file(char *filename)
                usuarios[i].no_cuenta, usuarios[i].nombre, usuarios[i].saldo);
     }
 }
+
+//creamos una funcion que convierte la estructura a json en reporte.json los datos de la lista usuarios
+
+char* struct_to_json(){
+
+    // Create an empty JSON Array
+    cJSON *json_array = cJSON_CreateArray();
+
+    // Iterate through the structs
+    for(int i = 0; i < usuarios_size; i++){
+        // Create an emty JSON Object
+        cJSON *item = cJSON_CreateObject();
+
+        // Add the values to the object
+        cJSON_AddNumberToObject(item, "no_cuenta", usuarios[i].no_cuenta);
+        cJSON_AddStringToObject(item, "nombre", usuarios[i].nombre);
+        cJSON_AddNumberToObject(item, "saldo", usuarios[i].saldo);
+
+        // Add the opbject to the Array
+        cJSON_AddItemToArray(json_array, item);
+    }
+
+    // Format the JSON Array 
+    char* formatted = cJSON_Print(json_array);
+    return formatted;
+}
+
+void write_file(char* filename, char* data){
+    //Open the file
+    FILE *file = fopen(filename, "wb");
+    if(file == NULL){
+        perror("Open file");
+        return;
+    }
+
+    // Write the data
+    fwrite(data, 1, strlen(data), file);
+    fclose(file);
+}
+void reporte_estado_cuenta(){
+    char* new_json = struct_to_json();  //  convertimos la estructura a json
+    write_file("Estado_de_cuentas.json", new_json);   //  escribimos el json en un archivo
+}
