@@ -1,0 +1,122 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;  
+  }
+.dashboard-pie-container{
+    position:absolute;
+    top: 300px;
+    left: 500px;
+    width: 600px;
+    height: 600px;
+  }
+  
+  .dashboard-title-container {
+    /* centramos el titulo y lo movemos hacia arriba */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+
+  }
+  
+  .dashboard-title {
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    /* le cambiamos el tipo de letra */
+    font-family: 'Arial';
+
+
+  }
+  
+  .dashboard-table-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    margin: 0 auto;
+    
+    
+
+  }
+  
+  .dashboard-table {
+
+    width: 100%;
+    border-collapse: collapse;
+    /*lo corremos a la izquierda */
+    margin-left: -500px;
+    
+    /*lo corremos hacia abajo */
+    margin-top: 700px;
+
+    
+  }
+  
+  .dashboard-table th,
+  .dashboard-table td {
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: center;
+    /* le cambiamos el tipo de letra */
+    font-family: 'Arial';
+    /* le cambiamos el tamaño de la letra */
+    font-size: 20px;
+    
+
+  }
+  
+  .dashboard-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    /* le cambiamos el tipo de letra */
+    font-family: 'Arial';
+    /* le cambiamos el tamaño de la letra */
+    font-size: 20px;  
+  }
+
+
+  .dashboard-table2-container {
+   
+    width: 40%;
+    margin: 0 auto;
+
+    
+
+  }
+  
+  .dashboard-table2 {
+    width: 100%;
+    border-collapse: collapse;
+    /*lo corremos a la derecha */
+    margin-left: 800px;
+    /*lo corremos hacia arriba */
+    margin-top: -700px;
+  }
+
+  .dashboard-table2 th,
+  .dashboard-table2 td {
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: center;
+    /* le cambiamos el tipo de letra */
+    font-family: 'Arial';
+    /* le cambiamos el tamaño de la letra */
+    font-size: 20px;
+    
+
+  }
+
+  .dashboard-table2 th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    /* le cambiamos el tipo de letra */
+    font-family: 'Arial';
+    /* le cambiamos el tamaño de la letra */
+    font-size: 20px;  
+  }
+
