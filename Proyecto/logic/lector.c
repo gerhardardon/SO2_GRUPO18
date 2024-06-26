@@ -15,7 +15,7 @@ MYSQL* connect_to_database() {
     }
 
     if (mysql_real_connect(conn, "localhost", "root", "root", 
-                           "mem", 0, NULL, 0) == NULL) {
+                           "proyecto2", 0, NULL, 0) == NULL) {
         fprintf(stderr, "mysql_real_connect() failed\n");
         mysql_close(conn);
         exit(EXIT_FAILURE);
@@ -44,8 +44,9 @@ int main() {
     fprintf(stderr, "Connected to database\n");
 
     //borrar contenido de la tabla
-    execute_query(conn, "delete from procesos");
-    fprintf(stderr, "-tabla limpiada con exito :)\n");
+    execute_query(conn, "delete from solicitudes;");
+    execute_query(conn, "delete from procesos;");
+    fprintf(stderr, "-tablas limpiada con exito :)\n");
 
     fp = popen("sudo ./systap.stp", "r");
     if (fp == NULL) {
@@ -61,7 +62,7 @@ int main() {
 
         sscanf(buffer, "%d %s %s %d %s\n", &pid, execname, action, &length, timestamp);
         int n = snprintf(query, sizeof(query),
-                         "insert into procesos (pid, nombre, llamada, tamano, fecha) values (%d, '%s', '%s', %d, '%s')",
+                         "insert into solicitudes (pid, nombre, llamada, tamano, fecha) values (%d, '%s', '%s', %d, '%s')",
                          pid, execname, action, length, timestamp);
 
         // Check for truncation
@@ -73,6 +74,7 @@ int main() {
         // Execute the query
         execute_query(conn, query);
         fprintf(stderr, "-insertado\n");
+        
 
     }
 
