@@ -32,6 +32,8 @@ def get_solicitudes():
 
     return solicitudes
 
+
+# esta funcion se encarga de generar los procesos haciendo query al tabala de solicitudes 
 def generar_procesos():
     # Conectar a la base de datos
     conn = mysql.connector.connect(**db_config)
@@ -115,7 +117,7 @@ def get_procesos():
     cursor = conn.cursor(dictionary=True)
 
     # Ejecutar la consulta
-    cursor.execute("SELECT * FROM procesos ORDER BY pid DESC LIMIT 10;")
+    cursor.execute("SELECT * FROM procesos WHERE memoriamb >0 ORDER BY pid DESC LIMIT 5;")
 
     # Obtener todos los resultados
     processo = cursor.fetchall()
@@ -132,7 +134,7 @@ def get_todos_procesos():
     cursor = conn.cursor(dictionary=True)
 
     # Ejecutar la consulta
-    cursor.execute("SELECT * FROM procesos")
+    cursor.execute("SELECT * FROM procesos;")
 
     # Obtener todos los resultados
     t_processo = cursor.fetchall()

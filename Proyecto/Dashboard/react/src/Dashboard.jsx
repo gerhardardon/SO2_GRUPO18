@@ -1,39 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import 'chart.js/auto';
-import { Pie } from 'react-chartjs-2';
-import './dashboard.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "chart.js/auto";
+import { Pie } from "react-chartjs-2";
+import "./dashboard.css";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [proc, setProc] = useState([]);
 
   // Función para obtener datos de la API
-  const fetchData = () => {
-    axios.get('http://localhost:5200/api/data/llamadas')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5200/api/data/llamadas"
+      );
+      setData(response.data);
+      //console.log('Datos:', data);  // Imprimir datos
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
-  
-  const fetchProc = () => {
-    axios.get('http://localhost:5200/api/data/procesos')
-      .then(response => {
-        // si el valor "memoria" es null o negativo, lo cambiamos por 0
-        response.data.forEach(proceso => {
-          if (proceso.memoria < 0) {
-            proceso.memoria = 0;
-          }
-        }
-        );
-        setProc(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+
+  // Función para obtener procesos de la API
+  const fetchProc = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5200/api/data/procesos"
+      );
+      setProc(response.data);
+      //console.log('Procesos:', proc);  // Imprimir datos obtenidos
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -44,60 +42,91 @@ const Dashboard = () => {
     const intervalId = setInterval(() => {
       fetchData();
       fetchProc();
+      //console.log('Datos:', data);  // Imprimir datos
     }, 5000);
+
+    console.log("Datos:", data); // Imprimir datos
+    console.log("Procesos:", proc); // Imprimir datos obtenidos
 
     // Limpiar el intervalo cuando el componente se desmonte
     return () => clearInterval(intervalId);
   }, []);
-  const opciones= {
+
+  const opciones = {
     maintainAspectRatio: false,
     responsive: true,
     // hacemos que la leyenda sea visible
     plugins: {
-        tooltip: {
-            titleFont: {
-                size: 20,
-            },
-            bodyFont: {
-                size: 20,
-            },
+      tooltip: {
+        titleFont: {
+          size: 20,
         },
+        bodyFont: {
+          size: 20,
+        },
+      },
       legend: {
         labels: {
-            font: {
-                size: 18,
-            },
-            },
+          font: {
+            size: 18,
+          },
+        },
       },
-
     },
-    
-};
+  };
   // Calcular la suma de los porcentajes de memoria
-  const totalPorcentaje = proc.reduce((acc, proceso) => acc + proceso.porcentaje_memoria * 100, 0);
+  const totalPorcentaje = proc.reduce(
+    (acc, proceso) => acc + proceso.porcentaje_memoria * 100,
+    0
+  );
 
   // Calcular la parte restante para llegar al 100%
   const restantePorcentaje = 100 - totalPorcentaje;
 
   // Datos para la gráfica de pastel
   const pieData = {
-    labels: [...proc.map(proceso => proceso.nombre), 'Restante'],
+    labels: [...proc.map((proceso) => proceso.nombre), "Restante"],
     datasets: [
       {
-        data: [...proc.map(proceso => proceso.porcentaje_memoria * 100), restantePorcentaje],
+        data: [
+          ...proc.map((proceso) => proceso.porcentaje_memoria * 100),
+          restantePorcentaje,
+        ],
         backgroundColor: [
           ...proc.map((_, index) => {
-            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56','#742919','#F54D29','#FAB7A9' ]; // Colores para las partes
+            const colors = [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+              "#FF9F40",
+              "#FFCD56",
+              "#742919",
+              "#F54D29",
+              "#FAB7A9",
+            ]; // Colores para las partes
             return colors[index % colors.length];
           }),
-          '#CCCCCC', // Color para la parte restante
+          "#CCCCCC", // Color para la parte restante
         ],
         hoverBackgroundColor: [
           ...proc.map((_, index) => {
-            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56','#742919','#F54D29','#FAB7A9']; // Colores para hover
+            const colors = [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+              "#FF9F40",
+              "#FFCD56",
+              "#742919",
+              "#F54D29",
+              "#FAB7A9",
+            ]; // Colores para hover
             return colors[index % colors.length];
           }),
-          '#AAAAAA', // Color hover para la parte restante
+          "#AAAAAA", // Color hover para la parte restante
         ],
       },
     ],
@@ -105,12 +134,11 @@ const Dashboard = () => {
 
   return (
     <div>
-        
       <div className="dashboard-title-container">
         <h1 className="dashboard-title">Dashboard</h1>
       </div>
-      <div className="dashboard-table-container">
-        
+      <div className="tablas">
+        <div className="dashboard-table2-container">
         <table className="dashboard-table">
           <thead>
             <tr>
@@ -125,8 +153,8 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map(solicitud => (
-              <tr key={solicitud.pid}>
+            {data.map((solicitud) => (
+              <tr key={solicitud.id}>
                 <td>{solicitud.pid}</td>
                 <td>{solicitud.nombre}</td>
                 <td>{solicitud.llamada}</td>
@@ -136,9 +164,10 @@ const Dashboard = () => {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="dashboard-table2-container">
-        <table className="dashboard-table2">
+        </div>
+        <div className="dashboard-table2-container">
+          <table className="dashboard-table">
+            
           <thead>
             <tr>
               <th colSpan="4">Procesos</th> {/* Título para la segunda tabla */}
@@ -160,10 +189,11 @@ const Dashboard = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
       <div className="dashboard-pie-container">
-        <Pie data={pieData} options={opciones} style={{height:"50vh"}}/>
+        <Pie data={pieData} options={opciones} style={{ height: "50vh" }} />
       </div>
     </div>
   );

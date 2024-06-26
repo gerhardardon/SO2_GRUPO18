@@ -4,6 +4,11 @@
     align-items: center;
     padding: 20px;  
   }
+
+.tablas{
+  display: flex;
+}
+
 .dashboard-pie-container{
     position:absolute;
     top: 300px;
@@ -47,7 +52,7 @@
     width: 100%;
     border-collapse: collapse;
     /*lo corremos a la izquierda */
-    margin-left: -500px;
+
     
     /*lo corremos hacia abajo */
     margin-top: 700px;
@@ -89,12 +94,11 @@
   }
   
   .dashboard-table2 {
-    width: 100%;
     border-collapse: collapse;
-    /*lo corremos a la derecha */
-    margin-left: 800px;
-    /*lo corremos hacia arriba */
-    margin-top: -700px;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
   }
 
   .dashboard-table2 th,
