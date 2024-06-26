@@ -22,6 +22,13 @@ const Dashboard = () => {
   const fetchProc = () => {
     axios.get('http://localhost:5200/api/data/procesos')
       .then(response => {
+        // si el valor "memoria" es null o negativo, lo cambiamos por 0
+        response.data.forEach(proceso => {
+          if (proceso.memoria < 0) {
+            proceso.memoria = 0;
+          }
+        }
+        );
         setProc(response.data);
       })
       .catch(error => {
