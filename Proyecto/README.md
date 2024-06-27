@@ -9,7 +9,7 @@ La gestión de la memoria es un aspecto crítico del rendimiento del sistema, ya
 sistema, identificar posibles cuellos de botella y optimizar la asignación de recursos. En este proyecto se creara una aplicación capaz de monitorear el uso de memoria de cada proceso abierto en Linux, detectando las solicitudes de memoria que estos realizan al sistema operativo.
 ## Dashboard
  En este archivo el cual pertenece al programacion en react, aqui tendremos las siugientes funciones:
-* fetchData y fetchproc 
+* fetchData y fetchproc  
 Tendremos las funciones para poder obtener os datos de la API el cual seran llevados posteriormente a las tablas.
 * useEffect 
  En esta funcion podremos llamar a fetchData y a fetchProc para montar el componente cada 5 segundos.
