@@ -25,3 +25,13 @@ Esta constante tendra las configruraciones necesarias para el correcto funcionam
 Esta constante calculara la parte retante para llegar al 100%
 * pieData  
 Esta constante servira para almacenar los datos de la grafica de pie.
+## Navbar
+Aqui estara el contenido que mostrara el navbar del dashboard, este estara utilizando la libreria "styled-components" para su manejo en css.
+## Main
+Aqui se estaran manejando las direcciones del dashboard, este empreara la libreria "react-router-dom" el cual servira para poder direccionar estos, utilizando la propiedad ReactDOM estos podran mostrarse en el dashboard.
+* Home
+Esta funcion tendra la direccion Navbar el cual manejara las rutas del dashboard.
+* Dashboard
+Esta funcion tendra la direccion navbar y el codigo del dashboard manejado en el archivo dashboard.jsx.
+* Otross
+Esta funcion estara manejando la direccion del Navbar y de Otros el cual manejara el archivo Otros.jsx.
