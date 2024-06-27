@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
+#include <unistd.h>
 
 #define BUFFER_SIZE 1024
 #define QUERY_SIZE 4096
@@ -74,6 +75,7 @@ int main() {
         // Execute the query
         execute_query(conn, query);
         fprintf(stderr, "-insertado\n");
+        usleep(500000);
         
 
     }
@@ -86,3 +88,5 @@ int main() {
 
     return 0;
 }
+
+// gcc lector.c -o lector -lmysqlclient

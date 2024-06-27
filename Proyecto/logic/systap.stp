@@ -1,7 +1,7 @@
 #!/usr/bin/stap
 
 probe syscall.mmap2 {
-    if (execname() != "docker"){
+    if (execname() != "cat"){
         printf("%d %s mmap %d %s\n",
         pid(), execname(), length, ctime())
     }
@@ -9,7 +9,7 @@ probe syscall.mmap2 {
 
 //total 9.5 Gb
 probe syscall.munmap {
-    if (execname() != "docker"){
+    if (execname() != "cat"){
         printf("%d %s munmap %d %s\n",
         pid(), execname(), length, ctime())
     }

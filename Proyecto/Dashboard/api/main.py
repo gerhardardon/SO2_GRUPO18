@@ -117,7 +117,7 @@ def get_procesos():
     cursor = conn.cursor(dictionary=True)
 
     # Ejecutar la consulta
-    cursor.execute("SELECT * FROM procesos WHERE memoriamb >0 ORDER BY pid DESC LIMIT 5;")
+    cursor.execute("SELECT * FROM procesos ORDER BY pid DESC LIMIT 10;")
 
     # Obtener todos los resultados
     processo = cursor.fetchall()
