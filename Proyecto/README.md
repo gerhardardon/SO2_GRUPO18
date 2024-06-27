@@ -25,13 +25,20 @@ Esta constante tendra las configruraciones necesarias para el correcto funcionam
 Esta constante calculara la parte retante para llegar al 100%
 * pieData  
 Esta constante servira para almacenar los datos de la grafica de pie.
+## Otros
+Aqui se estara manejando la tabla Otros, la cual poseera la informacion de todos los procesos retornados por el systemtap, estos estaran en la ruta 'http://localhost:5200/api/data/todos_procesos', para este manejaremos las siguientes funciones.
+* useEffect  
+aqui llamaremos a fech Data cada 5 segundos para actualizar su informacion.
+* fetchProc  
+en esta funcion podremos obtener los datos de la Api.
+
 ## Navbar
 Aqui estara el contenido que mostrara el navbar del dashboard, este estara utilizando la libreria "styled-components" para su manejo en css.
 ## Main
-Aqui se estaran manejando las direcciones del dashboard, este empreara la libreria "react-router-dom" el cual servira para poder direccionar estos, utilizando la propiedad ReactDOM estos podran mostrarse en el dashboard.
-* Home
+Aqui se estaran manejando las direcciones del dashboard, este empreara la libreria "react-router-dom" el cual servira para poder direccionar estos, utilizando la propiedad ReactDOM estos podran mostrarse en el dashboard.  
+* Home  
 Esta funcion tendra la direccion Navbar el cual manejara las rutas del dashboard.
-* Dashboard
+* Dashboard  
 Esta funcion tendra la direccion navbar y el codigo del dashboard manejado en el archivo dashboard.jsx.
-* Otross
+* Otross  
 Esta funcion estara manejando la direccion del Navbar y de Otros el cual manejara el archivo Otros.jsx.
